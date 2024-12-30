@@ -1,0 +1,193 @@
+﻿using System;
+using System.Reflection;
+using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
+using NewBinusstoreAPI.Model;
+using NewBinusstoreAPI.Output;
+
+using Binus.WS.Pattern.Output;
+using Binus.WS.Pattern.Service;
+using Binus.WS.Pattern.RouteGuard;
+
+namespace NewBinusstoreAPI.Services
+{
+    [ApiController]
+    [Route("ProductCategory")]
+    public class ProductCategoryService : BaseService
+    {
+        public ProductCategoryService(ILogger<BaseService> logger) : base(logger)
+        {
+        }
+
+        [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(OutputBase), StatusCodes.Status200OK)]
+        public IActionResult Get()
+        {
+            try
+            {
+                var objJSON = new CustomOutput();
+                string Token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
+                if (Token != "")
+                {
+                    CustomResponse processToken = new CustomResponse
+                    {
+                        Status = true,
+                        Data = new ValidTokenModel(),
+                        Message = ""
+                    };
+
+                    if (processToken.Status)
+                    {
+                        objJSON.Data = Helper.ProductCategoryHelper.Get((ValidTokenModel)processToken.Data);
+                    }
+                    else
+                    {
+                        objJSON.ResultCode = 0;
+                        objJSON.ErrorMessage = processToken.Message;
+                    }
+                }
+                else
+                {
+                    objJSON.ResultCode = 0;
+                    objJSON.ErrorMessage = "Not Authorized";
+                }
+                return new OkObjectResult(objJSON);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new OutputBase(ex));
+            }
+        }
+
+        [Route("{ID}")]
+        [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(OutputBase), StatusCodes.Status200OK)]
+        public IActionResult GetSingle(string ID)
+        {
+            try
+            {
+                var objJSON = new CustomOutput();
+                string Token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
+                if (Token != "")
+                {
+                    CustomResponse processToken = new CustomResponse
+                    {
+                        Status = true,
+                        Data = new ValidTokenModel(),
+                        Message = ""
+                    };
+
+                    if (processToken.Status)
+                    {
+                        objJSON.Data = Helper.ProductCategoryHelper.GetSingle((ValidTokenModel)processToken.Data, ID);
+                        objJSON.Callback = "onCompleteDetail(e.data)";
+                    }
+                    else
+                    {
+                        objJSON.ResultCode = 0;
+                        objJSON.ErrorMessage = processToken.Message;
+                    }
+                }
+                else
+                {
+                    objJSON.ResultCode = 0;
+                    objJSON.ErrorMessage = "Not Authorized";
+                }
+                return new OkObjectResult(objJSON);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new OutputBase(ex));
+            }
+        }
+
+        [Route("GetUpperCategory")]
+        [HttpGet]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(OutputBase), StatusCodes.Status200OK)]
+        public IActionResult GetUpperCategory()
+        {
+            try
+            {
+                var objJSON = new CustomOutput();
+                string Token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
+                if (Token != "")
+                {
+                    CustomResponse processToken = new CustomResponse
+                    {
+                        Status = true,
+                        Data = new ValidTokenModel(),
+                        Message = ""
+                    };
+
+                    if (processToken.Status)
+                    {
+                        objJSON.Data = Helper.ProductCategoryHelper.GetUpperCategory((ValidTokenModel)processToken.Data);
+                        objJSON.Callback = "onCompleteDetail(e.data)";
+                    }
+                    else
+                    {
+                        objJSON.ResultCode = 0;
+                        objJSON.ErrorMessage = processToken.Message;
+                    }
+                }
+                else
+                {
+                    objJSON.ResultCode = 0;
+                    objJSON.ErrorMessage = "Not Authorized";
+                }
+                return new OkObjectResult(objJSON);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new OutputBase(ex));
+            }
+        }
+
+
+        [HttpPost]
+        [Route("doSave")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(OutputBase), StatusCodes.Status200OK)]
+        public IActionResult Save([FromBody] ProductCategoryPayload formData)
+        {
+            try
+            {
+                var objJSON = new CustomOutput();
+                string Token = HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer", "").Trim();
+                CustomResponse processToken = new CustomResponse
+                {
+                    Status = true,
+                    Data = new ValidTokenModel(),
+                    Message = ""
+                };
+
+                if (processToken.Status)
+                {
+                    CustomResponse processData = Helper.ProductCategoryHelper.Save((ValidTokenModel)processToken.Data, formData);
+                    objJSON.ResultCode = processData.Status ? 1 : 0;
+                    objJSON.ErrorMessage = processData.Message != "" ? processData.Message : "";
+                    objJSON.Callback = processData.Callback != "" ? processData.Callback : "";
+
+                }
+                else
+                {
+                    objJSON.ResultCode = 0;
+                    objJSON.ErrorMessage = processToken.Message;
+                }
+                return new OkObjectResult(objJSON);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new OutputBase(ex));
+            }
+        }
+
+    }
+}

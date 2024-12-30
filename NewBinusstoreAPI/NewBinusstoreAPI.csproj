@@ -1,0 +1,103 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Description>API Web Service</Description>
+    <RootNamespace>NewBinusstoreAPI</RootNamespace>
+    <AssemblyName>NewBinusstoreAPI</AssemblyName>
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <ApplicationInsightsResourceId>/subscriptions/ec1f2ce1-0089-4251-868d-b84f2c1d8318/resourcegroups/API-Zoom-RG/providers/microsoft.insights/components/apins-zoom-dev</ApplicationInsightsResourceId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Binus.WS.Pattern" Version="2.1.4" />
+    <PackageReference Include="Binus.WS.Pattern.Redis" Version="1.0.1" />
+    <PackageReference Include="Binus.WS.Pattern.Entities" Version="1.5.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="ClosedXML" Version="0.97.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.18.0" />
+    <PackageReference Include="MailKit" Version="3.4.3" />
+    <PackageReference Include="Microsoft.SharePointOnline.CSOM" Version="16.1.23109.12000" />
+    <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Properties\launchSettings.json">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Model\Response\" />
+    <None Remove="Model\Payload\" />
+    <None Remove="Model\Response\BE\Merchant\" />
+    <None Remove="Model\Response\BE\Product\" />
+    <None Remove="Model\Response\BE\Customer\" />
+    <None Remove="Model\Response\BE\BTSPeriod\" />
+    <None Remove="Model\Response\FE\" />
+    <None Remove="Model\Payload\BE\" />
+    <None Remove="Model\Payload\FE\" />
+    <None Remove="Model\Payload\BE\Merchant\" />
+    <None Remove="Model\Payload\BE\Product\" />
+    <None Remove="Model\Payload\BE\Banner\" />
+    <None Remove="Model\Payload\BE\Customer\" />
+    <None Remove="Model\Payload\BE\BTSPeriod\" />
+    <None Remove="Model\Response\FE\Home\" />
+    <None Remove="Model\Response\FE\Cart\" />
+    <None Remove="Model\Response\FE\Checkout\" />
+    <None Remove="Model\Payload\FE\Cart\" />
+    <None Remove="Model\Payload\FE\Checkout\" />
+    <None Remove="ClosedXML" />
+    <None Remove="DocumentFormat.OpenXml" />
+    <None Remove="MailKit" />
+    <None Remove="Microsoft.SharePointOnline.CSOM" />
+    <None Remove="Novell.Directory.Ldap.NETStandard" />
+    <None Remove="Model\Response\Auth\" />
+    <None Remove="Model\Request\" />
+    <None Remove="Model\Request\Auth\" />
+    <None Remove="Model\Response\FE\DeliveryTracking\" />
+    <None Remove="Model\Response\FE\Address\" />
+    <None Remove="Model\Payload\FE\Address\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Response\" />
+    <Folder Include="Model\Payload\" />
+    <Folder Include="Model\Response\BE\Merchant\" />
+    <Folder Include="Model\Response\BE\Product\" />
+    <Folder Include="Model\Response\BE\Customer\" />
+    <Folder Include="Model\Response\BE\BTSPeriod\" />
+    <Folder Include="Model\Response\FE\" />
+    <Folder Include="Model\Payload\BE\" />
+    <Folder Include="Model\Payload\FE\" />
+    <Folder Include="Model\Payload\BE\Merchant\" />
+    <Folder Include="Model\Payload\BE\Product\" />
+    <Folder Include="Model\Payload\BE\Banner\" />
+    <Folder Include="Model\Payload\BE\Customer\" />
+    <Folder Include="Model\Payload\BE\BTSPeriod\" />
+    <Folder Include="Model\Response\FE\Home\" />
+    <Folder Include="Model\Response\FE\Cart\" />
+    <Folder Include="Model\Response\FE\Checkout\" />
+    <Folder Include="Model\Payload\FE\Cart\" />
+    <Folder Include="Model\Payload\FE\Checkout\" />
+    <Folder Include="Model\Response\Auth\" />
+    <Folder Include="Model\Request\" />
+    <Folder Include="Model\Request\Auth\" />
+    <Folder Include="Model\Response\FE\DeliveryTracking\" />
+    <Folder Include="Model\Response\FE\Address\" />
+    <Folder Include="Model\Payload\FE\Address\" />
+  </ItemGroup>
+</Project>
